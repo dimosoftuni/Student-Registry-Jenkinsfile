@@ -30,9 +30,13 @@ pipeline {
         }
         stage('Deploy Image') {
             steps {
+              script {
+                    // Prompt for input approval
+                    input("Deploy to production?") 
+                }
                 withCredentials([usernamePassword(credentialsId: '79fffb34-ce55-4758-821a-83e3b1ecccc0', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     bat """docker pull dimosoftuni/student:1.0.0
-                    docker run -d dimosoftuni/student:1.0.0 """
+                    docker run -d -p 8081:8081 dimosoftuni/student:1.0.0 """
                 }
             }
         }
