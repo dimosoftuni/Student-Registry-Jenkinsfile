@@ -19,6 +19,7 @@ pipeline {
                 bat "npm run test"
             }
         }
+
         stage('Build Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: '79fffb34-ce55-4758-821a-83e3b1ecccc0', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
@@ -28,6 +29,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Deploy Image') {
             steps {
               script {
